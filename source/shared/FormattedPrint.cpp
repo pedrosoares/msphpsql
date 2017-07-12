@@ -244,7 +244,7 @@ errno_t mplat_wctomb_s(
    WCHAR wchar
 )
 {
-    DWORD rc;
+    DWORD_ rc;
     size_t cch = SystemLocale::FromUtf16( CP_ACP, &wchar, 1, mbchar, sizeInBytes, NULL, &rc );
     *pRetValue = (int)cch;
     return (ERROR_SUCCESS == rc ? 0 : -1);
@@ -1215,14 +1215,14 @@ static bool GetFormatMessageArgsA( const char * format, std::vector< vararg_t > 
 
 // On success, returns the number of chars written into the buffer excluding null terminator.
 // On error, sets errno and returns zero.
-static DWORD FormatMessageToBufferA( const char * format, char * buffer, DWORD bufferWCharSize, const std::vector< vararg_t > & args )
+static DWORD_ FormatMessageToBufferA( const char * format, char * buffer, DWORD_ bufferWCharSize, const std::vector< vararg_t > & args )
 {
     char * msg = buffer;
-    DWORD bufsize = std::min(bufferWCharSize, (DWORD)64000);
-    DWORD msg_pos = 0;
-    const DWORD fmtsize = 32;
+    DWORD_ bufsize = std::min(bufferWCharSize, (DWORD_)64000);
+    DWORD_ msg_pos = 0;
+    const DWORD_ fmtsize = 32;
     char fmt[fmtsize];
-    DWORD fmt_pos;
+    DWORD_ fmt_pos;
     char fmt_ch;
 
     const char * p = format;
@@ -1403,9 +1403,9 @@ static DWORD FormatMessageToBufferA( const char * format, char * buffer, DWORD b
 // dwLanguageId is ignored for FORMAT_MESSAGE_FROM_STRING as per spec
 //      For FORMAT_MESSAGE_FROM_SYSTEM, we don't have Windows resources so language is irrelevant
 
-DWORD FormatMessageA(DWORD dwFlags, LPCVOID lpSource, DWORD dwMessageId, DWORD dwLanguageId, LPTSTR lpBuffer, DWORD nSize, va_list *Arguments)
+DWORD_ FormatMessageA(DWORD_ dwFlags, LPCVOID lpSource, DWORD_ dwMessageId, DWORD_ dwLanguageId, LPTSTR lpBuffer, DWORD_ nSize, va_list *Arguments)
 {
-    DWORD chars_printed = 0;
+    DWORD_ chars_printed = 0;
 
     // XPLAT_ODBC_TODO VSTS 718708 Localization by handling FORMAT_MESSAGE_FROM_HMODULE and dwLanguageId param
     if ( dwFlags & FORMAT_MESSAGE_FROM_STRING )
@@ -1428,7 +1428,7 @@ DWORD FormatMessageA(DWORD dwFlags, LPCVOID lpSource, DWORD dwMessageId, DWORD d
             {
                 *((char**)lpBuffer) = NULL;
 
-                const DWORD max_size = 64000;
+                const DWORD_ max_size = 64000;
                 char local_buf[max_size];
                 chars_printed = FormatMessageToBufferA( reinterpret_cast<const char *>(lpSource), local_buf, max_size, args );
                 if ( 0 < chars_printed )
@@ -1448,7 +1448,7 @@ DWORD FormatMessageA(DWORD dwFlags, LPCVOID lpSource, DWORD dwMessageId, DWORD d
             }
             else if ( dwFlags == FORMAT_MESSAGE_FROM_STRING )
             {
-                chars_printed = FormatMessageToBufferA( reinterpret_cast<const char *>(lpSource), lpBuffer, std::min(nSize, (DWORD)64000), args );
+                chars_printed = FormatMessageToBufferA( reinterpret_cast<const char *>(lpSource), lpBuffer, std::min(nSize, (DWORD_)64000), args );
             }
         }
     }

@@ -218,7 +218,7 @@ SQLRETURN number_to_string( Number* number_data, _Out_ void* buffer, SQLLEN buff
             if ( cch > 0 )
             {
                 WCHAR ch16;
-                DWORD rc;                
+                DWORD_ rc;
                 size_t cchActual = SystemLocale::ToUtf16( CP_ACP, &mb, cch, &ch16, 1, &rc);
                 if (cchActual > 0)
                 {
@@ -250,7 +250,7 @@ std::string getUTF8StringFromString( const SQLWCHAR* source )
     while ( source[i] )
     {        
         memset( c_str, 0, sizeof( c_str ) );        
-        DWORD rc;    
+        DWORD_ rc;
         int cch = 0;
         errno_t err = mplat_wctomb_s( &cch, c_str, sizeof( c_str ), source[i++] );
         if ( cch > 0 && err == ERROR_SUCCESS )

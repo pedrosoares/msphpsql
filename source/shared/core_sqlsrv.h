@@ -64,11 +64,11 @@
 #define SetLastError(err) errno=err
 
 typedef struct _OSVERSIONINFOA {
-    DWORD dwOSVersionInfoSize;
-    DWORD dwMajorVersion;
-    DWORD dwMinorVersion;
-    DWORD dwBuildNumber;
-    DWORD dwPlatformId;
+    DWORD_ dwOSVersionInfoSize;
+    DWORD_ dwMajorVersion;
+    DWORD_ dwMinorVersion;
+    DWORD_ dwBuildNumber;
+    DWORD_ dwPlatformId;
     CHAR   szCSDVersion[ 128 ];     // Maintenance string for PSS usage
 } OSVERSIONINFOA, *POSVERSIONINFOA, *LPOSVERSIONINFOA;
 typedef OSVERSIONINFOA OSVERSIONINFO;
@@ -1669,10 +1669,10 @@ void core_sqlsrv_format_driver_error( sqlsrv_context& ctx, sqlsrv_error_const co
 
 // return the message for the HRESULT returned by GetLastError.  Some driver errors use this to
 // return the Windows error, e.g, when a UTF-8 <-> UTF-16 conversion fails.
-const char* get_last_error_message( DWORD last_error = 0 );
+const char* get_last_error_message( DWORD_ last_error = 0 );
 
 // a wrapper around FormatMessage that can take variadic args rather than a a va_arg pointer
-DWORD core_sqlsrv_format_message( char* output_buffer, unsigned output_len, const char* format, ... );
+DWORD_ core_sqlsrv_format_message( char* output_buffer, unsigned output_len, const char* format, ... );
 
 // convenience functions that overload either a reference or a pointer so we can use
 // either in the CHECK_* functions.

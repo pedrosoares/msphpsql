@@ -34,7 +34,7 @@ typedef struct localeinfo_struct
     pthreadmbcinfo mbcinfo;
 } _locale_tstruct, *_locale_t;
 
-typedef DWORD LCTYPE;
+typedef DWORD_ LCTYPE;
 
 #define MB_ERR_INVALID_CHARS      0x00000008  // error for invalid chars
 

@@ -162,7 +162,7 @@ void core_sqlsrv_mshutdown( sqlsrv_context& henv_cp, sqlsrv_context& henv_ncp )
 
 // DllMain for the extension.  
 #ifdef _WIN32
-BOOL WINAPI DllMain( HINSTANCE hinstDLL, DWORD fdwReason, LPVOID )
+BOOL WINAPI DllMain( HINSTANCE hinstDLL, DWORD_ fdwReason, LPVOID )
 {
     switch( fdwReason ) {
         case DLL_PROCESS_ATTACH:

@@ -173,7 +173,7 @@ class EncodingConverter
     };
 
     template< class DestType >
-    bool AddDefault( iconv_buffer<DestType> * dest, bool * pHasLoss, DWORD * pErrorCode ) const
+    bool AddDefault( iconv_buffer<DestType> * dest, bool * pHasLoss, DWORD_ * pErrorCode ) const
     {
         if ( NULL != pHasLoss )
             *pHasLoss = true;
@@ -194,7 +194,7 @@ class EncodingConverter
     size_t Convert(
         iconv_buffer<DestType> & dest,
         iconv_buffer<SrcType> & src,
-        bool failIfLossy = false, bool * pHasLoss = NULL, DWORD * pErrorCode = NULL ) const
+        bool failIfLossy = false, bool * pHasLoss = NULL, DWORD_ * pErrorCode = NULL ) const
     {
         if ( !IsValidIConv() )
             return 0;
@@ -280,7 +280,7 @@ public:
     size_t Convert(
         DestType ** destBuffer,
         const SrcType * srcBuffer,  size_t cchSource,
-        bool failIfLossy = false, bool * pHasLoss = NULL, DWORD * pErrorCode = NULL ) const
+        bool failIfLossy = false, bool * pHasLoss = NULL, DWORD_ * pErrorCode = NULL ) const
     {
 
         if ( !IsValidIConv() )
@@ -298,7 +298,7 @@ public:
             cchDest );
 
         size_t cchPrevCvt = 0;
-        DWORD rcCvt;
+        DWORD_ rcCvt;
         while ( true )
         {
             size_t cchCvt = Convert( dest, src, failIfLossy, pHasLoss, &rcCvt );
@@ -342,7 +342,7 @@ public:
     size_t Convert(
         DestType * destBuffer,      size_t cchDest,
         const SrcType * srcBuffer,  size_t cchSource,
-        bool failIfLossy = false, bool * pHasLoss = NULL, DWORD * pErrorCode = NULL ) const
+        bool failIfLossy = false, bool * pHasLoss = NULL, DWORD_ * pErrorCode = NULL ) const
     {
 
         if ( !IsValidIConv() )
@@ -368,7 +368,7 @@ public:
                 CCH_FIXED_SIZE );
 
             bool hasLoss = false;
-            DWORD rcCvt = ERROR_SUCCESS;
+            DWORD_ rcCvt = ERROR_SUCCESS;
             size_t cchOnce = 0;
             size_t cchCumulative = 0;
 

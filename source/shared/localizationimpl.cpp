@@ -289,7 +289,7 @@ const SystemLocale & SystemLocale::Singleton()
     return s_Default;
 }
 
-size_t SystemLocale::ToUtf16( UINT srcCodePage, const char * src, SSIZE_T cchSrc, WCHAR * dest, size_t cchDest, DWORD * pErrorCode )
+size_t SystemLocale::ToUtf16( UINT srcCodePage, const char * src, SSIZE_T cchSrc, WCHAR * dest, size_t cchDest, DWORD_ * pErrorCode )
 {
     srcCodePage = ExpandSpecialCP( srcCodePage );
     EncodingConverter cvt( CP_UTF16, srcCodePage );
@@ -304,7 +304,7 @@ size_t SystemLocale::ToUtf16( UINT srcCodePage, const char * src, SSIZE_T cchSrc
     return cvt.Convert( dest, cchDest, src, cchSrcActual, false, &hasLoss, pErrorCode );
 }
 
-size_t SystemLocale::ToUtf16Strict( UINT srcCodePage, const char * src, SSIZE_T cchSrc, WCHAR * dest, size_t cchDest, DWORD * pErrorCode )
+size_t SystemLocale::ToUtf16Strict( UINT srcCodePage, const char * src, SSIZE_T cchSrc, WCHAR * dest, size_t cchDest, DWORD_ * pErrorCode )
 {
     srcCodePage = ExpandSpecialCP( srcCodePage );
     EncodingConverter cvt( CP_UTF16, srcCodePage );
@@ -319,7 +319,7 @@ size_t SystemLocale::ToUtf16Strict( UINT srcCodePage, const char * src, SSIZE_T 
     return cvt.Convert( dest, cchDest, src, cchSrcActual, true, &hasLoss, pErrorCode );
 }
 
-size_t SystemLocale::FromUtf16( UINT destCodePage, const WCHAR * src, SSIZE_T cchSrc, char * dest, size_t cchDest, bool * pHasDataLoss, DWORD * pErrorCode )
+size_t SystemLocale::FromUtf16( UINT destCodePage, const WCHAR * src, SSIZE_T cchSrc, char * dest, size_t cchDest, bool * pHasDataLoss, DWORD_ * pErrorCode )
 {
     destCodePage = ExpandSpecialCP( destCodePage );
     EncodingConverter cvt( destCodePage, CP_UTF16 );
@@ -334,7 +334,7 @@ size_t SystemLocale::FromUtf16( UINT destCodePage, const WCHAR * src, SSIZE_T cc
     return cvt.Convert( dest, cchDest, src, cchSrcActual, false, &hasLoss, pErrorCode );
 }
 
-size_t SystemLocale::FromUtf16Strict(UINT destCodePage, const WCHAR * src, SSIZE_T cchSrc, char * dest, size_t cchDest, bool * pHasDataLoss, DWORD * pErrorCode)
+size_t SystemLocale::FromUtf16Strict(UINT destCodePage, const WCHAR * src, SSIZE_T cchSrc, char * dest, size_t cchDest, bool * pHasDataLoss, DWORD_ * pErrorCode)
 {
     destCodePage = ExpandSpecialCP(destCodePage);
     EncodingConverter cvt(destCodePage, CP_UTF16);
@@ -399,5 +399,5 @@ char * SystemLocale::NextChar( UINT codepage, const char * start )
 {
     // Just assume some large max buffer size since caller is saying
     // start is null terminated.
-    return NextChar( codepage, start, DWORD_MAX );
+    return NextChar( codepage, start, DWORD__MAX );
 }

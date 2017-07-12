@@ -148,16 +148,16 @@ public:
     // Transcode between a code page and UTF16
     static size_t ToUtf16( UINT srcCodePage, const char * src, SSIZE_T cchSrc,
                            __out_ecount_opt(cchDest) WCHAR * dest, size_t cchDest,
-                           DWORD * pErrorCode = NULL );
+                           DWORD_ * pErrorCode = NULL );
     static size_t ToUtf16Strict( UINT srcCodePage, const char * src, SSIZE_T cchSrc,
                                  __out_ecount_opt(cchDest) WCHAR * dest, size_t cchDest,
-                                 DWORD * pErrorCode = NULL );
+                                 DWORD_ * pErrorCode = NULL );
     static size_t FromUtf16( UINT destCodePage, const WCHAR * src, SSIZE_T cchSrc,
                              __out_ecount_opt(cchDest) char * dest, size_t cchDest,
-                             bool * pHasDataLoss = NULL, DWORD * pErrorCode = NULL );
+                             bool * pHasDataLoss = NULL, DWORD_ * pErrorCode = NULL );
     static size_t FromUtf16Strict(UINT destCodePage, const WCHAR * src, SSIZE_T cchSrc,
                                   __out_ecount_opt(cchDest) char * dest, size_t cchDest,
-                                  bool * pHasDataLoss = NULL, DWORD * pErrorCode = NULL);
+                                  bool * pHasDataLoss = NULL, DWORD_ * pErrorCode = NULL);
 
 
 

@@ -545,7 +545,7 @@ void pdo_sqlsrv_log( unsigned int severity TSRMLS_DC, const char* msg, va_list* 
         return;
     }
 
-    DWORD rc = FormatMessage( FORMAT_MESSAGE_FROM_STRING, msg, 0, 0, log_msg, LOG_MSG_SIZE, print_args );
+    DWORD_ rc = FormatMessage( FORMAT_MESSAGE_FROM_STRING, msg, 0, 0, log_msg, LOG_MSG_SIZE, print_args );
 
     // if an error occurs for FormatMessage, we just output an internal error occurred.
     if( rc == 0 ) {

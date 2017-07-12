@@ -27,13 +27,13 @@
 #define LANG_NEUTRAL              0x00
 #define SUBLANG_DEFAULT           0x01        // user default
 
-DWORD FormatMessageA(
-    DWORD dwFlags,
+DWORD_ FormatMessageA(
+    DWORD_ dwFlags,
     LPCVOID lpSource,
-    DWORD dwMessageId,
-    DWORD dwLanguageId,
+    DWORD_ dwMessageId,
+    DWORD_ dwLanguageId,
     LPTSTR lpBuffer,
-    DWORD nSize,
+    DWORD_ nSize,
     va_list *Arguments
     );
 

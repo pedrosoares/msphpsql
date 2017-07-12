@@ -83,7 +83,7 @@ using std::max;
 // Similarly, because 'long long' (and its cousin 'unsigned long long') are not portable across
 // Linux/UNIX platforms and compilers, provide common definitions for 64-bit types as well.
 //
-// These types are used in this file primarily to define common Windows types (DWORD, LONG, etc.)
+// These types are used in this file primarily to define common Windows types (DWORD_, LONG, etc.)
 // Cross-platform code should use either the Windows types or appropriate types from <stdint.h>.
 #include <stdint.h> // Use standard bit-specific types (signed/unsigned integrated)
 typedef int32_t windowsLong_t;
@@ -178,7 +178,7 @@ typedef int INT_PTR;
 #endif
 
 //// ??
-//typedef ULONG_PTR DWORD_PTR;
+//typedef ULONG_PTR DWORD__PTR;
 #define FALSE ((BOOL)0)
 #define TRUE  ((BOOL)1)
 

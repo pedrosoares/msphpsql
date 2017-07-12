@@ -140,7 +140,7 @@ bool convert_string_from_utf16( SQLSRV_ENCODING encoding, const SQLWCHAR* inStri
 
     // flags set to 0 by default, which means that any invalid characters are dropped rather than causing
     // an error.   This happens only on XP.
-    DWORD flags = 0;
+    DWORD_ flags = 0;
     if( encoding == CP_UTF8 && g_osversion.dwMajorVersion >= SQLSRV_OS_VISTA_OR_LATER ) {
         // Vista (and later) will detect invalid UTF-16 characters and raise an error.
         flags = WC_ERR_INVALID_CHARS;
@@ -191,7 +191,7 @@ SQLWCHAR* utf16_string_from_mbcs_string( SQLSRV_ENCODING php_encoding, const cha
 
     if( *utf16_len == 0 ) {
         // we preserve the error and reset it because sqlsrv_free resets the last error
-        DWORD last_error = GetLastError();
+        DWORD_ last_error = GetLastError();
         sqlsrv_free( utf16_string );
         SetLastError( last_error );
         return NULL;
@@ -292,7 +292,7 @@ void core_sqlsrv_format_driver_error( sqlsrv_context& ctx, sqlsrv_error_const co
     formatted_error->sqlstate = reinterpret_cast<SQLCHAR*>( sqlsrv_malloc( SQL_SQLSTATE_BUFSIZE ));
     formatted_error->native_message = reinterpret_cast<SQLCHAR*>( sqlsrv_malloc( SQL_MAX_MESSAGE_LENGTH + 1 ));
 
-    DWORD rc = FormatMessage( FORMAT_MESSAGE_FROM_STRING, reinterpret_cast<LPSTR>( custom_error->native_message ), 0, 0, 
+    DWORD_ rc = FormatMessage( FORMAT_MESSAGE_FROM_STRING, reinterpret_cast<LPSTR>( custom_error->native_message ), 0, 0,
                               reinterpret_cast<LPSTR>( formatted_error->native_message ), SQL_MAX_MESSAGE_LENGTH, args );
     if( rc == 0 ) {
         strcpy_s( reinterpret_cast<char*>( formatted_error->native_message ), SQL_MAX_MESSAGE_LENGTH,
@@ -309,11 +309,11 @@ void core_sqlsrv_format_driver_error( sqlsrv_context& ctx, sqlsrv_error_const co
     LOG( severity, "%1!s!: message = %2!s!", ctx.func(), formatted_error->native_message );
 }
 
-DWORD core_sqlsrv_format_message( char* output_buffer, unsigned output_len, const char* format, ... )
+DWORD_ core_sqlsrv_format_message( char* output_buffer, unsigned output_len, const char* format, ... )
 {
     va_list format_args;
     va_start( format_args, format );
-    DWORD rc = FormatMessage( FORMAT_MESSAGE_FROM_STRING, format, 0, 0, static_cast<LPSTR>(output_buffer), output_len, &format_args );
+    DWORD_ rc = FormatMessage( FORMAT_MESSAGE_FROM_STRING, format, 0, 0, static_cast<LPSTR>(output_buffer), output_len, &format_args );
     va_end( format_args );
     return rc;
 }
@@ -321,13 +321,13 @@ DWORD core_sqlsrv_format_message( char* output_buffer, unsigned output_len, cons
 // return an error message for GetLastError using FormatMessage.
 // this function returns the msg pointer so that it may be used within
 // another function call such as handle_error
-const char* get_last_error_message( DWORD last_error )
+const char* get_last_error_message( DWORD_ last_error )
 {
     if( last_error == 0 ) {
         last_error = GetLastError();
     }
 
-    DWORD r = FormatMessage( FORMAT_MESSAGE_FROM_SYSTEM, NULL, last_error, MAKELANGID( LANG_NEUTRAL, SUBLANG_DEFAULT ),
+    DWORD_ r = FormatMessage( FORMAT_MESSAGE_FROM_SYSTEM, NULL, last_error, MAKELANGID( LANG_NEUTRAL, SUBLANG_DEFAULT ),
                              last_err_msg, sizeof( last_err_msg ), NULL );
 
     if( r == 0 ) {
@@ -350,7 +350,7 @@ void die( const char* msg, ... )
 {
     va_list format_args;
     va_start( format_args, msg );
-    DWORD rc = FormatMessage( FORMAT_MESSAGE_FROM_STRING, msg, 0, 0, last_err_msg, sizeof( last_err_msg ), &format_args );
+    DWORD_ rc = FormatMessage( FORMAT_MESSAGE_FROM_STRING, msg, 0, 0, last_err_msg, sizeof( last_err_msg ), &format_args );
     va_end( format_args );
     if( rc == 0 ) {
         php_error( E_ERROR, reinterpret_cast<const char*>( INTERNAL_FORMAT_ERROR ));

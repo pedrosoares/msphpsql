@@ -1288,7 +1288,7 @@ bool core_sqlsrv_send_stream_packet( sqlsrv_stmt* stmt TSRMLS_DC )
                 // expansion of 2x the UTF-8 size.
                 SQLWCHAR wbuffer[ PHP_STREAM_BUFFER_SIZE + 1 ];
                 int wbuffer_size = static_cast<int>( sizeof( wbuffer ) / sizeof( SQLWCHAR ));
-				DWORD last_error_code = ERROR_SUCCESS;
+				DWORD_ last_error_code = ERROR_SUCCESS;
 				// buffer_size is the # of wchars.  Since it set to stmt->param_buffer_size / 2, this is accurate
 #ifndef _WIN32
                 int wsize = SystemLocale::ToUtf16Strict( stmt->current_stream.encoding, buffer, static_cast<int>(read), wbuffer, wbuffer_size, &last_error_code );
